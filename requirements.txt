@@ -3,9 +3,3 @@ matplotlib
 pandas
 numpy
 seaborn
- streamlit
- pandas 
- numpy 
- matplotlib.pyplot 
- 
-
