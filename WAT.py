@@ -1,29 +1,24 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
-import seaborn  as sns
-
 import seaborn as sns
-
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.preprocessing import StandardScaler
-import sklearn.metrics
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 from sklearn.impute import SimpleImputer
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
-from warnings import filterwarnings
+import warnings
 
-
-filterwarnings('ignore')
+warnings.filterwarnings('ignore')
 
 # Set page configuration
 st.set_page_config(
-    page_title="Water Quality Prediction-shujaat-waqar",
+    page_title="Water Quality Prediction shujaat waqar",
     page_icon="💧",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -48,7 +43,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # Title and description
-st.markdown('<h1 class="main-header">💧 Water Quality Prediction-shujaat-waqar</h1>', unsafe_allow_html=True)
+st.markdown('<h1 class="main-header">💧 Water Quality Prediction shujaat waqar</h1>', unsafe_allow_html=True)
 st.markdown("""
 This application predicts water quality based on various chemical and physical parameters.
 Upload your data or use the sample dataset to train models and make predictions.
@@ -144,10 +139,6 @@ if 'feature_names' not in st.session_state:
     st.session_state.feature_names = None
 
 # Page 1: Data Upload & Overview
-def ac(y_test, y_pred):
-    pass
-
-
 if page == "Data Upload & Overview":
     st.header("📊 Data Upload & Overview")
 
@@ -267,7 +258,7 @@ elif page == "Model Training":
 
             # Make predictions
             y_pred = model.predict(X_test_scaled)
-            accuracy = ac(y_test, y_pred)
+            accuracy = accuracy_score(y_test, y_pred)
 
             # Store in session state
             st.session_state.model = model
@@ -281,13 +272,13 @@ elif page == "Model Training":
 
             with col1:
                 st.subheader("Classification Report")
-                report = sklearn.metrics.classification_report(y_test, y_pred, output_dict=True)
+                report = classification_report(y_test, y_pred, output_dict=True)
                 report_df = pd.DataFrame(report).transpose()
                 st.dataframe(report_df)
 
             with col2:
                 st.subheader("Confusion Matrix")
-                cm = sklearn.metrics.confusion_matrix(y_test, y_pred)
+                cm = confusion_matrix(y_test, y_pred)
                 fig = px.imshow(cm, text_auto=True, aspect="auto",
                                 title="Confusion Matrix")
                 st.plotly_chart(fig, use_container_width=True)
@@ -468,7 +459,7 @@ elif page == "Data Visualization":
 st.markdown("---")
 st.markdown("""
 <div style='text-align: center'>
-    <p>Water Quality Prediction-shujaat-waqar | Built with Streamlit & Scikit-learn</p>
+    <p>Water Quality Prediction shujaat waqar | Built with Streamlit & Scikit-learn</p>
     <p>💧 Ensuring safe water for everyone 💧</p>
 </div>
 """, unsafe_allow_html=True)
